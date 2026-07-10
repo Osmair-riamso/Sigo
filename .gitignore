@@ -1,0 +1,25 @@
+# Ambiente virtual
+.venv/
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+
+# Banco de dados
+database/*.db
+
+# Backups
+database/backups/
+
+# Arquivos exportados
+exports/pdf/
+exports/excel/
+
+# Configurações do VS Code
+.vscode/
+
+# Variáveis de ambiente
+.env
+
+# Logs
+*.log
