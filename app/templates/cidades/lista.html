@@ -6,36 +6,75 @@
 
 <hr>
 
-<form method="POST">
+<form method="POST" class="form-card">
 
-    <label>Cidade</label>
+    {% if editar %}
+        <input
+            type="hidden"
+            name="id"
+            value="{{ editar.id }}">
+    {% endif %}
 
-    <input
-        type="text"
-        name="cidade"
-        required>
+    <p>
 
-    <br><br>
+        <label>Cidade</label>
 
-    <label>UF</label>
+        <input
+            type="text"
+            name="cidade"
+            required
+            value="{{ editar.cidade if editar else '' }}">
 
-    <input
-        type="text"
-        name="estado"
-        maxlength="2"
-        required>
+    </p>
 
-    <br><br>
+    <p>
+
+        <label>Estado (UF)</label>
+
+        <input
+            type="text"
+            name="estado"
+            maxlength="2"
+            required
+            value="{{ editar.estado if editar else '' }}">
+
+    </p>
 
     <button type="submit">
 
-        Salvar
+        {% if editar %}
+
+            <i class="fa-solid fa-pen"></i>
+
+            Atualizar
+
+        {% else %}
+
+            <i class="fa-solid fa-plus"></i>
+
+            Salvar
+
+        {% endif %}
 
     </button>
 
+    {% if editar %}
+
+        <a
+            href="{{ url_for('cidades.lista_cidades') }}"
+            style="margin-left:15px;">
+
+            Cancelar
+
+        </a>
+
+    {% endif %}
+
 </form>
 
-<br>
+<hr>
+
+<h3>Cidades cadastradas</h3>
 
 <table class="tabela">
 
@@ -43,9 +82,11 @@
 
         <tr>
 
-            <th>ID</th>
             <th>Cidade</th>
+
             <th>UF</th>
+
+            <th width="220">Ações</th>
 
         </tr>
 
@@ -53,17 +94,57 @@
 
     <tbody>
 
-    {% for cidade in cidades %}
+        {% for cidade in cidades %}
 
         <tr>
 
-            <td>{{ cidade.id }}</td>
-            <td>{{ cidade.cidade }}</td>
-            <td>{{ cidade.estado }}</td>
+            <td>
+
+                {{ cidade.cidade }}
+
+            </td>
+
+            <td>
+
+                {{ cidade.estado }}
+
+            </td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('cidades.lista_cidades', editar=cidade.id) }}">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Editar
+
+                </a>
+
+                &nbsp;&nbsp;
+
+                <form
+                    method="POST"
+                    action="{{ url_for('cidades.excluir_cidade', id=cidade.id) }}"
+                    style="display:inline;">
+
+                    <button
+                        type="submit"
+                        onclick="return confirm('Deseja realmente excluir esta cidade?')">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                        Excluir
+
+                    </button>
+
+                </form>
+
+            </td>
 
         </tr>
 
-    {% endfor %}
+        {% endfor %}
 
     </tbody>
 
