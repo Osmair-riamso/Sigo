@@ -299,3 +299,17 @@ Nenhuma nova funcionalidade será iniciada antes da conclusão da etapa anterior
 Desenvolver um sistema simples, rápido e confiável para uso diário da equipe técnica da emissora, garantindo que nenhuma informação operacional seja perdida entre os turnos e mantendo um histórico completo de todas as ocorrências.
 
 O projeto foi concebido para ser de fácil manutenção e preparado para futuras expansões, como integração com Active Directory, API REST, envio de e-mails, notificações e dashboard em tempo real.
+## Status do Desenvolvimento
+
+### ✅ Sprint 1 - Estrutura Inicial
+- Estrutura do projeto Flask
+- Ambiente virtual
+- GitHub configurado
+- Página inicial
+- Bootstrap integrado
+
+### 🚧 Sprint 2 - Banco de Dados
+- [x] Modelagem do banco (MER)
+- [ ] Implementação dos Models
+- [ ] Criação automática do banco SQLite
+- [ ] Usuário administrador
