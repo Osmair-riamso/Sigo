@@ -1,5 +1,8 @@
 from datetime import datetime
 
+from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from . import db
 
 
@@ -10,7 +13,7 @@ def agora():
 
 class BaseModel(db.Model):
     """
-    Classe base para todas as tabelas do sistema.
+    Classe base para todas as tabelas.
     """
 
     __abstract__ = True
@@ -52,4 +55,43 @@ class Operadora(BaseModel):
 
     def __repr__(self):
         return f"<Operadora {self.nome}>"
+
+
+class Usuario(UserMixin, BaseModel):
+    """
+    Cadastro de usuários do sistema.
+    """
+
+    __tablename__ = "usuarios"
+
+    nome = db.Column(
+        db.String(120),
+        nullable=False,
+    )
+
+    login = db.Column(
+        db.String(50),
+        unique=True,
+        nullable=False,
+    )
+
+    senha_hash = db.Column(
+        db.String(255),
+        nullable=False,
+    )
+
+    perfil = db.Column(
+        db.String(20),
+        nullable=False,
+        default="USER",
+    )
+
+    def definir_senha(self, senha):
+        self.senha_hash = generate_password_hash(senha)
+
+    def verificar_senha(self, senha):
+        return check_password_hash(self.senha_hash, senha)
+
+    def __repr__(self):
+        return f"<Usuario {self.login}>"
     
