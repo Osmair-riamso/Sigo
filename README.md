@@ -184,5 +184,79 @@ Atualmente o SIGO encontra-se na fase de desenvolvimento da estrutura administra
 - Integração futura com Zabbix
 
 ---
+## Estrutura do Projeto
+
+app/
+│
+├── routes/
+│   ├── main.py
+│   ├── operadoras.py
+│   ├── cidades.py
+│   ├── circuitos.py
+│   ├── usuarios.py
+│   └── ocorrencias.py
+│
+├── templates/
+│   ├── base.html
+│   ├── dashboard.html
+│   ├── operadoras/
+│   ├── cidades/
+│   ├── circuitos/
+│   ├── usuarios/
+│   └── ocorrencias/
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── img/
+│
+├── models.py
+└── __init__.py
+
+## Módulos do Sistema
+
+### Administrativos
+
+- Operadoras
+- Cidades
+- Circuitos
+- Usuários
+
+### Operacionais
+
+- Ocorrências
+- Agenda
+- Passagem de Turno
+- Dashboard
+
+## Roadmap
+
+### Sprint 6
+
+- CRUD completo
+- Editar
+- Excluir
+- Confirmação de exclusão
+
+### Sprint 7
+
+- Login
+- Controle de acesso
+
+### Sprint 8
+
+- Ocorrências
+- Histórico
+- Timeline
+
+### Sprint 9
+
+- Dashboard dinâmico
+- Agenda
+- Passagem de turno
+
+### Sprint 10
+
+- Integração com Zabbix
 
 Projeto desenvolvido por Osmair Pereira.

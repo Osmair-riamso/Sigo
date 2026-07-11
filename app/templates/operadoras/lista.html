@@ -2,30 +2,62 @@
 
 {% block content %}
 
-<h2>Operadoras</h2>
+<h2>Cadastro de Operadoras</h2>
 
 <hr>
 
-<form method="POST">
+<form method="POST" class="form-card">
 
-    <label>Nome da Operadora</label>
+    {% if editar %}
+        <input
+            type="hidden"
+            name="id"
+            value="{{ editar.id }}">
+    {% endif %}
+
+    <label>Operadora</label>
 
     <input
         type="text"
         name="nome"
-        required>
+        required
+        value="{{ editar.nome if editar else '' }}">
 
     <br><br>
 
     <button type="submit">
 
-        Salvar
+        {% if editar %}
+
+            <i class="fa-solid fa-pen"></i>
+
+            Atualizar
+
+        {% else %}
+
+            <i class="fa-solid fa-plus"></i>
+
+            Salvar
+
+        {% endif %}
 
     </button>
 
+    {% if editar %}
+
+        <a href="{{ url_for('operadoras.lista_operadoras') }}">
+
+            Cancelar
+
+        </a>
+
+    {% endif %}
+
 </form>
 
-<br>
+<hr>
+
+<h3>Operadoras cadastradas</h3>
 
 <table class="tabela">
 
@@ -33,29 +65,63 @@
 
         <tr>
 
-            <th>ID</th>
+            <th>Operadora</th>
 
-            <th>Nome</th>
+            <th width="180">Ações</th>
 
         </tr>
 
     </thead>
 
-    <tbody>
+<tbody>
 
-    {% for operadora in operadoras %}
+        {% for operadora in operadoras %}
 
         <tr>
 
-            <td>{{ operadora.id }}</td>
+            <td>
 
-            <td>{{ operadora.nome }}</td>
+                {{ operadora.nome }}
+
+            </td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('operadoras.lista_operadoras', editar=operadora.id) }}">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Editar
+
+                </a>
+
+                &nbsp;&nbsp;
+
+                <form
+                    method="POST"
+                    action="{{ url_for('operadoras.excluir_operadora', id=operadora.id) }}"
+                    style="display:inline;">
+
+                    <button
+                        type="submit"
+                        onclick="return confirm('Deseja realmente excluir esta operadora?')">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                        Excluir
+
+                    </button>
+
+                </form>
+
+            </td>
 
         </tr>
 
-    {% endfor %}
+        {% endfor %}
 
-    </tbody>
+</tbody>
 
 </table>
 

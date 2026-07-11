@@ -121,3 +121,48 @@ Os alertas poderão ser ocultados ou reativados pelo Administrador.
 Não serão alimentados automaticamente pelo Zabbix.
 
 O objetivo é evitar alarmes repetitivos.
+
+USUARIO
+---------
+id
+nome
+login
+senha_hash
+perfil
+ativo
+created_at
+updated_at
+
+OPERADORA
+----------
+id
+nome
+ativo
+created_at
+updated_at
+
+CIDADE
+-------
+id
+cidade
+estado
+ativo
+created_at
+updated_at
+
+CIRCUITO
+---------
+id
+cidade_id
+operadora_id
+tipo
+designacao
+observacao
+ativo
+created_at
+updated_at
+
+OCORRENCIA
+-----------
+(estrutura será implementada na Sprint 7)
+

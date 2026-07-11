@@ -98,13 +98,33 @@
 
     </aside>
 
-    <main class="conteudo">
+{% with messages = get_flashed_messages(with_categories=true) %}
 
-        {% block content %}
+    {% if messages %}
 
-        {% endblock %}
+        <div class="flash-container">
 
-    </main>
+            {% for categoria, mensagem in messages %}
+
+                <div class="flash {{ categoria }}">
+                    {{ mensagem }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+<main class="conteudo">
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
 
 </div>
 
