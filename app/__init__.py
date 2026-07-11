@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 from config import Config
 
-# Instância do banco de dados
 db = SQLAlchemy()
 
 
@@ -12,14 +11,23 @@ def create_app():
 
     app.config.from_object(Config)
 
-    # Inicializa o SQLAlchemy
     db.init_app(app)
 
-    # Importa os models para que o SQLAlchemy conheça as tabelas
+    # Importa os models
     from app import models
 
-    # Registra as rotas
+    # Importa apenas os Blueprints que já existem
     from app.routes.main import main_bp
+    from app.routes.operadoras import operadoras_bp
+    from app.routes.cidades import cidades_bp
+    from app.routes.circuitos import circuitos_bp
+    from app.routes.usuarios import usuarios_bp
+
+    # Registra os Blueprints
     app.register_blueprint(main_bp)
+    app.register_blueprint(operadoras_bp)
+    app.register_blueprint(cidades_bp)
+    app.register_blueprint(circuitos_bp)
+    app.register_blueprint(usuarios_bp)
 
     return app

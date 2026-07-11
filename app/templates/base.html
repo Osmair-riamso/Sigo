@@ -12,8 +12,10 @@
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
 
 <body>
@@ -29,6 +31,7 @@
             <h1>SIGO</h1>
 
         </div>
+
         <span>Sistema Integrado de Gestão Operacional</span>
 
     </div>
@@ -47,19 +50,51 @@
 
     <aside class="menu">
 
-    <ul>
+        <ul>
 
-        <li><i class="fa-solid fa-house"></i> Dashboard</li>
+            <li>
+                <a href="{{ url_for('main.dashboard') }}">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
 
-        <li><i class="fa-solid fa-triangle-exclamation"></i> Ocorrências</li>
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Ocorrências
+                </a>
+            </li>
 
-        <li><i class="fa-solid fa-network-wired"></i> Circuitos</li>
+            <li>
+            <a href="{{ url_for('circuitos.lista_circuitos') }}">
+                <i class="fa-solid fa-network-wired"></i>
+                Circuitos
+            </a>
+            </li>
 
-        <li><i class="fa-solid fa-building"></i> Operadoras</li>
+            <li>
+                <a href="{{ url_for('operadoras.lista_operadoras') }}">
+                    <i class="fa-solid fa-building"></i>
+                    Operadoras
+                </a>
+            </li>
 
-        <li><i class="fa-solid fa-users"></i> Usuários</li>
+            <li>
+                <a href="{{ url_for('cidades.lista_cidades') }}">
+                    <i class="fa-solid fa-city"></i>
+                    Cidades
+                </a>
+            </li>
 
-    </ul>
+            <li>
+                <a href="{{ url_for('usuarios.lista_usuarios') }}">
+                    <i class="fa-solid fa-users"></i>
+                    Usuários
+                </a>
+            </li>
+
+        </ul>
 
     </aside>
 
@@ -73,13 +108,15 @@
 
 </div>
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 <footer>
 
     SIGO v0.1.0 • Desenvolvido por Osmair Pereira
 
 </footer>
 
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
 
 </html>
+

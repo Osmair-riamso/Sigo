@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Cadastro de Circuitos</h2>
+
+<hr>
+
+<form method="POST">
+
+    <label>Cidade</label>
+
+    <select name="cidade" required>
+
+        <option value="">Selecione...</option>
+
+        {% for cidade in cidades %}
+
+        <option value="{{ cidade.id }}">
+
+            {{ cidade.cidade }}/{{ cidade.estado }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Operadora</label>
+
+    <select name="operadora" required>
+
+        <option value="">Selecione...</option>
+
+        {% for operadora in operadoras %}
+
+        <option value="{{ operadora.id }}">
+
+            {{ operadora.nome }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Tipo</label>
+
+    <select name="tipo">
+
+        <option>Principal</option>
+
+        <option>Redundante</option>
+
+    </select>
+
+    <br><br>
+
+    <label>Designação</label>
+
+    <input
+        type="text"
+        name="designacao"
+        required>
+
+    <br><br>
+
+    <label>Observação</label>
+
+    <textarea
+        name="observacao"
+        rows="3"></textarea>
+
+    <br><br>
+
+    <button type="submit">
+
+        Salvar
+
+    </button>
+
+</form>
+
+<br>
+
+<table class="tabela">
+
+    <thead>
+
+        <tr>
+
+            <th>Cidade</th>
+
+            <th>Operadora</th>
+
+            <th>Tipo</th>
+
+            <th>Designação</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for circuito in circuitos %}
+
+        <tr>
+
+            <td>
+
+                {{ circuito.cidade.cidade }}/{{ circuito.cidade.estado }}
+
+            </td>
+
+            <td>
+
+                {{ circuito.operadora.nome }}
+
+            </td>
+
+            <td>
+
+                {{ circuito.tipo }}
+
+            </td>
+
+            <td>
+
+                {{ circuito.designacao }}
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

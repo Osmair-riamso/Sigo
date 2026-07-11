@@ -95,3 +95,134 @@ class Usuario(UserMixin, BaseModel):
     def __repr__(self):
         return f"<Usuario {self.login}>"
     
+class Cidade(BaseModel):
+    """
+    Cadastro de cidades atendidas.
+    """
+
+    __tablename__ = "cidades"
+
+    cidade = db.Column(
+        db.String(100),
+        nullable=False,
+    )
+
+    estado = db.Column(
+        db.String(2),
+        nullable=False,
+    )
+
+    def __repr__(self):
+        return f"<Cidade {self.cidade}/{self.estado}>"
+
+
+
+class Circuito(BaseModel):
+    """
+    Cadastro dos circuitos de fibra.
+    """
+
+    __tablename__ = "circuitos"
+
+    cidade_id = db.Column(
+        db.Integer,
+        db.ForeignKey("cidades.id"),
+        nullable=False,
+    )
+
+    operadora_id = db.Column(
+        db.Integer,
+        db.ForeignKey("operadoras.id"),
+        nullable=False,
+    )
+
+    tipo = db.Column(
+        db.String(20),
+        nullable=False,
+    )  # Principal | Redundante
+
+    designacao = db.Column(
+        db.String(150),
+        nullable=False,
+        unique=True,
+    )
+
+    observacao = db.Column(
+        db.String(255),
+        nullable=True,
+    )
+
+    cidade = db.relationship("Cidade")
+
+    operadora = db.relationship("Operadora")
+
+    def __repr__(self):
+        return (
+            f"<Circuito "
+            f"{self.cidade.cidade}/{self.cidade.estado} - "
+            f"{self.tipo} - "
+            f"{self.operadora.nome}>"
+        )
+
+
+
+class Ocorrencia(BaseModel):
+    """
+    Chamado principal do sistema.
+    """
+
+    __tablename__ = "ocorrencias"
+
+    circuito_id = db.Column(
+        db.Integer,
+        db.ForeignKey("circuitos.id"),
+        nullable=False,
+    )
+
+    usuario_abertura_id = db.Column(
+        db.Integer,
+        db.ForeignKey("usuarios.id"),
+        nullable=False,
+    )
+
+    protocolo = db.Column(
+        db.String(80)
+    )
+
+    prioridade = db.Column(
+        db.String(30),
+        nullable=False,
+    )
+
+    status = db.Column(
+        db.String(30),
+        nullable=False,
+        default="Aberto"
+    )
+
+    sintoma = db.Column(
+        db.String(200),
+        nullable=False,
+    )
+
+    tecnico_campo = db.Column(
+        db.Boolean,
+        default=False,
+    )
+
+    data_abertura = db.Column(
+        db.DateTime,
+        default=agora,
+        nullable=False,
+    )
+
+    data_encerramento = db.Column(
+        db.DateTime
+    )
+
+    circuito = db.relationship("Circuito")
+
+    usuario_abertura = db.relationship("Usuario")
+
+    def __repr__(self):
+        return f"<Ocorrencia {self.id}>"

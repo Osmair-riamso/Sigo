@@ -294,3 +294,105 @@ footer{
     font-weight:500;
 
 }
+.painel-fibra{
+
+    grid-column: span 2;
+
+    min-height:340px;
+
+}
+
+.tabela{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:15px;
+
+}
+
+.tabela th{
+
+    background:#1F3A5F;
+
+    color:white;
+
+    padding:12px;
+
+    text-align:left;
+
+}
+
+.tabela td{
+
+    padding:12px;
+
+    border-bottom:1px solid #e5e5e5;
+
+}
+
+.tabela tr:hover{
+
+    background:#f8f9fa;
+
+}
+.menu a{
+
+    color:white;
+
+    text-decoration:none;
+
+    display:block;
+
+}
+
+form{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:10px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:10px;
+
+    margin-top:5px;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
+}
+
+button{
+
+    background:#1F3A5F;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:#274a76;
+
+}

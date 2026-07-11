@@ -156,6 +156,33 @@ MER/
 - ⏳ Ocorrências
 - ⏳ Relatórios
 
+## Status do Projeto
+
+Atualmente o SIGO encontra-se na fase de desenvolvimento da estrutura administrativa.
+
+### Funcionalidades implementadas
+
+- Dashboard inicial
+- Cadastro de Operadoras
+- Cadastro de Cidades
+- Cadastro de Circuitos
+- Cadastro de Usuários
+- Banco de dados SQLite utilizando SQLAlchemy
+- Arquitetura modular utilizando Blueprints
+- Templates organizados por módulo
+- Estrutura preparada para autenticação com Flask-Login
+
+### Funcionalidades em desenvolvimento
+
+- CRUD completo (Editar/Excluir)
+- Login de usuários
+- Cadastro de Ocorrências
+- Histórico de ocorrências
+- Dashboard dinâmico
+- Agenda operacional
+- Passagem de turno
+- Integração futura com Zabbix
+
 ---
 
 Projeto desenvolvido por Osmair Pereira.

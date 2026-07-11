@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <section class="painel painel-fibra">
+
+        <h3><i class="fa-solid fa-satellite-dish"></i> Painel Fibra</h3>
+
+        <hr>
+
+        {% if ocorrencias %}
+
+        <table class="tabela">
+
+            <thead>
+
+                <tr>
+
+                    <th>Cidade</th>
+                    <th>Circuito</th>
+                    <th>Operadora</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for ocorrencia in ocorrencias %}
+
+                <tr>
+
+                    <td>{{ ocorrencia.cidade }}</td>
+                    <td>{{ ocorrencia.circuito }}</td>
+                    <td>{{ ocorrencia.operadora }}</td>
+                    <td>{{ ocorrencia.status }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p>Nenhuma ocorrência cadastrada.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="painel">
+
+        <h3><i class="fa-solid fa-clipboard-list"></i> Passagem de Turno</h3>
+
+        <hr>
+
+        {% if passagem_turno %}
+
+            {{ passagem_turno }}
+
+        {% else %}
+
+            <p>Nenhuma informação.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="painel">
+
+        <h3><i class="fa-solid fa-calendar-days"></i> Agenda Técnica</h3>
+
+        <hr>
+
+        {% if agenda %}
+
+            {{ agenda }}
+
+        {% else %}
+
+            <p>Nenhum evento agendado.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="painel">
+
+        <h3><i class="fa-solid fa-newspaper"></i> Resumo Operacional</h3>
+
+        <hr>
+
+        {% if resumo %}
+
+            {{ resumo }}
+
+        {% else %}
+
+            <p>Hoje não houve ocorrências.</p>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+
+<aside class="painel-direito">
+
+    <div class="box-lateral">
+
+        <h3><i class="fa-solid fa-clock-rotate-left"></i> Última Atualização</h3>
+
+        <hr>
+
+        {% if ultima_atualizacao %}
+
+            {{ ultima_atualizacao }}
+
+        {% else %}
+
+            Nenhuma atualização.
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="box-lateral destaque">
+
+        <h3><i class="fa-solid fa-calendar-check"></i> Agenda Prioritária</h3>
+
+        <hr>
+
+        {% if agenda_prioritaria %}
+
+            {{ agenda_prioritaria }}
+
+        {% else %}
+
+            Nenhum evento próximo.
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="box-lateral alerta">
+
+        <h3><i class="fa-solid fa-bell"></i> Alertas Operacionais</h3>
+
+        <hr>
+
+        {% if alertas %}
+
+            {{ alertas }}
+
+        {% else %}
+
+            Nenhum alerta ativo.
+
+        {% endif %}
+
+    </div>
+
+</aside>
+
+{% endblock %}

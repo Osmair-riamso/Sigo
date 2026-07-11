@@ -4,47 +4,115 @@
 
 <div class="dashboard">
 
-    <div class="painel fibra">
+    <section class="painel painel-fibra">
 
         <h3><i class="fa-solid fa-satellite-dish"></i> Painel Fibra</h3>
 
         <hr>
 
-        <p>Nenhuma ocorrência registrada.</p>
+        {% if ocorrencias %}
 
-    </div>
+        <table class="tabela">
 
-    <div class="painel turno">
+            <thead>
+
+                <tr>
+
+                    <th>Cidade</th>
+                    <th>Circuito</th>
+                    <th>Operadora</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for ocorrencia in ocorrencias %}
+
+                <tr>
+
+                    <td>{{ ocorrencia.cidade }}</td>
+                    <td>{{ ocorrencia.circuito }}</td>
+                    <td>{{ ocorrencia.operadora }}</td>
+                    <td>{{ ocorrencia.status }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p>Nenhuma ocorrência cadastrada.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="painel">
 
         <h3><i class="fa-solid fa-clipboard-list"></i> Passagem de Turno</h3>
 
         <hr>
 
-        <p>Nenhuma informação.</p>
+        {% if passagem_turno %}
 
-    </div>
+            {{ passagem_turno }}
 
-    <div class="painel agenda">
+        {% else %}
+
+            <p>Nenhuma informação.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="painel">
 
         <h3><i class="fa-solid fa-calendar-days"></i> Agenda Técnica</h3>
 
         <hr>
 
-        <p>Nenhum evento agendado.</p>
+        {% if agenda %}
 
-    </div>
+            {{ agenda }}
 
-    <div class="painel resumo">
+        {% else %}
+
+            <p>Nenhum evento agendado.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="painel">
 
         <h3><i class="fa-solid fa-newspaper"></i> Resumo Operacional</h3>
 
         <hr>
 
-        <p>Hoje não houve ocorrências.</p>
+        {% if resumo %}
 
-    </div>
+            {{ resumo }}
+
+        {% else %}
+
+            <p>Hoje não houve ocorrências.</p>
+
+        {% endif %}
+
+    </section>
 
 </div>
+
 
 <aside class="painel-direito">
 
@@ -54,17 +122,18 @@
 
         <hr>
 
-        <strong>Operadora:</strong> Cirion<br>
+        {% if ultima_atualizacao %}
 
-        <strong>Circuito:</strong> CTA-0001<br>
+            {{ ultima_atualizacao }}
 
-        <strong>Usuário:</strong> João<br>
+        {% else %}
 
-        <strong>Data:</strong> 12/07/2026<br>
+            Nenhuma atualização.
 
-        <strong>Status:</strong> Técnico em campo
+        {% endif %}
 
     </div>
+
 
     <div class="box-lateral destaque">
 
@@ -72,13 +141,18 @@
 
         <hr>
 
-        <strong>Em 5 dias</strong><br>
+        {% if agenda_prioritaria %}
 
-        Troca Switch Core<br>
+            {{ agenda_prioritaria }}
 
-        Central Técnica
+        {% else %}
+
+            Nenhum evento próximo.
+
+        {% endif %}
 
     </div>
+
 
     <div class="box-lateral alerta">
 
@@ -86,7 +160,15 @@
 
         <hr>
 
-        Nenhum alerta ativo.
+        {% if alertas %}
+
+            {{ alertas }}
+
+        {% else %}
+
+            Nenhum alerta ativo.
+
+        {% endif %}
 
     </div>
 
