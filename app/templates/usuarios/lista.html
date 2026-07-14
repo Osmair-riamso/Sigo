@@ -6,118 +6,245 @@
 
 <hr>
 
-<form method="POST">
+<form method="POST" class="form-card">
 
-<p>
+    {% if editar %}
+        <input
+            type="hidden"
+            name="id"
+            value="{{ editar.id }}">
+    {% endif %}
 
-<label>Nome</label><br>
+    <p>
 
-<input
-type="text"
-name="nome"
-required>
+        <label>Nome</label>
 
-</p>
+        <input
+            type="text"
+            name="nome"
+            required
+            value="{{ editar.nome if editar else '' }}">
 
-<p>
+    </p>
 
-<label>Login</label><br>
+    <p>
 
-<input
-type="text"
-name="login"
-required>
+        <label>Login</label>
 
-</p>
+        <input
+            type="text"
+            name="login"
+            required
+            value="{{ editar.login if editar else '' }}">
 
-<p>
+    </p>
 
-<label>Senha</label><br>
+    <p>
 
-<input
-type="password"
-name="senha"
-required>
+        <label>Senha</label>
 
-</p>
+        <input
+            type="password"
+            name="senha"
+            {% if not editar %}required{% endif %}>
 
-<p>
+        {% if editar %}
 
-<label>Perfil</label><br>
+            <small>
 
-<select name="perfil">
+                Deixe em branco para manter a senha atual.
 
-    <option value="ADMIN">Administrador</option>
+            </small>
 
-    <option value="USER">Usuário</option>
+        {% endif %}
 
-</select>
+    </p>
 
-</p>
+    <p>
 
-<button>
+        <label>Perfil</label>
 
-Salvar
+        <select name="perfil">
 
-</button>
+            <option
+                value="ADMIN"
+                {% if editar and editar.perfil == "ADMIN" %}selected{% endif %}>
+
+                Administrador
+
+            </option>
+
+            <option
+                value="USER"
+                {% if editar and editar.perfil == "USER" %}selected{% endif %}>
+
+                Usuário
+
+            </option>
+
+        </select>
+
+    </p>
+
+    <button type="submit">
+
+        {% if editar %}
+
+            <i class="fa-solid fa-pen"></i>
+
+            Atualizar
+
+        {% else %}
+
+            <i class="fa-solid fa-plus"></i>
+
+            Salvar
+
+        {% endif %}
+
+    </button>
+
+    {% if editar %}
+
+        <a
+            href="{{ url_for('usuarios.lista_usuarios') }}"
+            style="margin-left:15px;">
+
+            Cancelar
+
+        </a>
+
+    {% endif %}
 
 </form>
 
 <hr>
 
+<h3>Usuários cadastrados</h3>
+
 <table class="tabela">
 
-<thead>
+    <thead>
 
-<tr>
+        <tr>
 
-<th>ID</th>
+            <th>Nome</th>
 
-<th>Nome</th>
+            <th>Login</th>
 
-<th>Login</th>
+            <th>Perfil</th>
 
-<th>Perfil</th>
+            <th>Status</th>
 
-<th>Status</th>
+            <th width="330">Ações</th>
 
-</tr>
+        </tr>
 
-</thead>
+    </thead>
 
-<tbody>
+    <tbody>
 
-{% for usuario in usuarios %}
+        {% for usuario in usuarios %}
 
-<tr>
+        <tr>
 
-<td>{{ usuario.id }}</td>
+            <td>
 
-<td>{{ usuario.nome }}</td>
+                {{ usuario.nome }}
 
-<td>{{ usuario.login }}</td>
+            </td>
 
-<td>{{ usuario.perfil }}</td>
+            <td>
 
-<td>
+                {{ usuario.login }}
 
-{% if usuario.ativo %}
+            </td>
 
-🟢
+            <td>
 
-{% else %}
+                {{ usuario.perfil }}
 
-🔴
+            </td>
 
-{% endif %}
+            <td>
 
-</td>
+                {% if usuario.ativo %}
 
-</tr>
+                    🟢 Ativo
 
-{% endfor %}
+                {% else %}
 
-</tbody>
+                    🔴 Inativo
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('usuarios.lista_usuarios', editar=usuario.id) }}">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Editar
+
+                </a>
+
+                &nbsp;&nbsp;
+
+                <form
+                    method="POST"
+                    action="{{ url_for('usuarios.alterar_status', id=usuario.id) }}"
+                    style="display:inline;">
+
+                    <button
+                        type="submit">
+
+                        {% if usuario.ativo %}
+
+                            <i class="fa-solid fa-ban"></i>
+
+                            Inativar
+
+                        {% else %}
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Ativar
+
+                        {% endif %}
+
+                    </button>
+
+                </form>
+
+                &nbsp;&nbsp;
+
+                <form
+                    method="POST"
+                    action="{{ url_for('usuarios.excluir_usuario', id=usuario.id) }}"
+                    style="display:inline;">
+
+                    <button
+                        type="submit"
+                        onclick="return confirm('Deseja realmente excluir este usuário?')">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                        Excluir
+
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
 
 </table>
 

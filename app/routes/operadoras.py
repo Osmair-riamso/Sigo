@@ -28,47 +28,83 @@ def lista_operadoras():
         operadora_id = request.form.get("id")
         nome = request.form["nome"].strip()
 
-        # ===== EDITAR =====
+        # ==========================
+        # EDITAR
+        # ==========================
+
         if operadora_id:
 
             operadora = Operadora.query.get_or_404(operadora_id)
 
             existente = Operadora.query.filter(
                 Operadora.nome == nome,
-                Operadora.id != operadora.id
+                Operadora.id != operadora.id,
             ).first()
 
             if existente:
-                flash("Já existe uma operadora com esse nome.", "warning")
-                return redirect(url_for("operadoras.lista_operadoras"))
+
+                flash(
+                    "Já existe uma operadora com este nome.",
+                    "warning",
+                )
+
+                return redirect(
+                    url_for("operadoras.lista_operadoras")
+                )
 
             operadora.nome = nome
 
             db.session.commit()
 
-            flash("Operadora atualizada com sucesso.", "success")
+            flash(
+                "Operadora atualizada com sucesso.",
+                "success",
+            )
 
-            return redirect(url_for("operadoras.lista_operadoras"))
+            return redirect(
+                url_for("operadoras.lista_operadoras")
+            )
 
-        # ===== NOVA =====
+        # ==========================
+        # NOVA
+        # ==========================
 
-        existente = Operadora.query.filter_by(nome=nome).first()
+        existente = Operadora.query.filter_by(
+            nome=nome
+        ).first()
 
         if existente:
-            flash("Operadora já cadastrada.", "warning")
-            return redirect(url_for("operadoras.lista_operadoras"))
 
-        nova = Operadora(nome=nome)
+            flash(
+                "Operadora já cadastrada.",
+                "warning",
+            )
+
+            return redirect(
+                url_for("operadoras.lista_operadoras")
+            )
+
+        nova = Operadora(
+            nome=nome,
+            ativo=True,
+        )
 
         db.session.add(nova)
 
         db.session.commit()
 
-        flash("Operadora cadastrada com sucesso.", "success")
+        flash(
+            "Operadora cadastrada com sucesso.",
+            "success",
+        )
 
-        return redirect(url_for("operadoras.lista_operadoras"))
+        return redirect(
+            url_for("operadoras.lista_operadoras")
+        )
 
-    operadoras = Operadora.query.order_by(Operadora.nome).all()
+    operadoras = Operadora.query.order_by(
+        Operadora.nome
+    ).all()
 
     return render_template(
         "operadoras/lista.html",
@@ -77,10 +113,63 @@ def lista_operadoras():
     )
 
 
-@operadoras_bp.route("/operadoras/<int:id>/excluir", methods=["POST"])
+# ==========================
+# ATIVAR / INATIVAR
+# ==========================
+
+@operadoras_bp.route(
+    "/operadoras/<int:id>/status",
+    methods=["POST"],
+)
+def alterar_status(id):
+
+    operadora = Operadora.query.get_or_404(id)
+
+    operadora.ativo = not operadora.ativo
+
+    db.session.commit()
+
+    if operadora.ativo:
+
+        flash(
+            "Operadora ativada com sucesso.",
+            "success",
+        )
+
+    else:
+
+        flash(
+            "Operadora inativada com sucesso.",
+            "success",
+        )
+
+    return redirect(
+        url_for("operadoras.lista_operadoras")
+    )
+
+
+# ==========================
+# EXCLUIR
+# ==========================
+
+@operadoras_bp.route(
+    "/operadoras/<int:id>/excluir",
+    methods=["POST"],
+)
 def excluir_operadora(id):
 
     operadora = Operadora.query.get_or_404(id)
+
+    if operadora.ativo:
+
+        flash(
+            "Primeiro inative a operadora para poder excluí-la.",
+            "warning",
+        )
+
+        return redirect(
+            url_for("operadoras.lista_operadoras")
+        )
 
     circuito = Circuito.query.filter_by(
         operadora_id=id
@@ -89,16 +178,24 @@ def excluir_operadora(id):
     if circuito:
 
         flash(
-            "Não é possível excluir esta operadora porque existem circuitos vinculados.",
+            "Não é possível excluir. Existem circuitos vinculados.",
             "danger",
         )
 
-        return redirect(url_for("operadoras.lista_operadoras"))
+        return redirect(
+            url_for("operadoras.lista_operadoras")
+        )
 
     db.session.delete(operadora)
 
     db.session.commit()
 
-    flash("Operadora excluída com sucesso.", "success")
+    flash(
+        "Operadora excluída definitivamente.",
+        "success",
+    )
 
-    return redirect(url_for("operadoras.lista_operadoras"))
+    return redirect(
+        url_for("operadoras.lista_operadoras")
+    )
+    

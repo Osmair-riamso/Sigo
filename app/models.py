@@ -144,7 +144,6 @@ class Circuito(BaseModel):
     designacao = db.Column(
         db.String(150),
         nullable=False,
-        unique=True,
     )
 
     observacao = db.Column(

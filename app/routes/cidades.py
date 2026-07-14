@@ -70,7 +70,7 @@ def lista_cidades():
             )
 
         # ==========================
-        # NOVO
+        # NOVA
         # ==========================
 
         existente = Cidade.query.filter_by(
@@ -92,6 +92,7 @@ def lista_cidades():
         nova = Cidade(
             cidade=cidade,
             estado=estado,
+            ativo=True,
         )
 
         db.session.add(nova)
@@ -118,6 +119,45 @@ def lista_cidades():
     )
 
 
+# ==========================================
+# ATIVAR / INATIVAR
+# ==========================================
+
+@cidades_bp.route(
+    "/cidades/<int:id>/status",
+    methods=["POST"],
+)
+def alterar_status(id):
+
+    cidade = Cidade.query.get_or_404(id)
+
+    cidade.ativo = not cidade.ativo
+
+    db.session.commit()
+
+    if cidade.ativo:
+
+        flash(
+            "Cidade ativada com sucesso.",
+            "success",
+        )
+
+    else:
+
+        flash(
+            "Cidade inativada com sucesso.",
+            "success",
+        )
+
+    return redirect(
+        url_for("cidades.lista_cidades")
+    )
+
+
+# ==========================================
+# EXCLUIR
+# ==========================================
+
 @cidades_bp.route(
     "/cidades/<int:id>/excluir",
     methods=["POST"],
@@ -126,6 +166,17 @@ def excluir_cidade(id):
 
     cidade = Cidade.query.get_or_404(id)
 
+    if cidade.ativo:
+
+        flash(
+            "Primeiro inative a cidade para poder excluí-la.",
+            "warning",
+        )
+
+        return redirect(
+            url_for("cidades.lista_cidades")
+        )
+
     circuito = Circuito.query.filter_by(
         cidade_id=id
     ).first()
@@ -133,7 +184,7 @@ def excluir_cidade(id):
     if circuito:
 
         flash(
-            "Não é possível excluir esta cidade porque existem circuitos vinculados.",
+            "Não é possível excluir. Existem circuitos vinculados.",
             "danger",
         )
 
@@ -146,12 +197,11 @@ def excluir_cidade(id):
     db.session.commit()
 
     flash(
-        "Cidade excluída com sucesso.",
+        "Cidade excluída definitivamente.",
         "success",
     )
 
     return redirect(
         url_for("cidades.lista_cidades")
     )
-    
     

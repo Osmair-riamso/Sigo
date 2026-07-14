@@ -86,67 +86,102 @@
 
             <th>UF</th>
 
-            <th width="220">Ações</th>
+            <th width="120">Status</th>
+
+            <th width="320">Ações</th>
 
         </tr>
 
     </thead>
 
-    <tbody>
+ <tbody>
 
-        {% for cidade in cidades %}
+{% for cidade in cidades %}
 
-        <tr>
+<tr>
 
-            <td>
+    <td>{{ cidade.cidade }}</td>
 
-                {{ cidade.cidade }}
+    <td>{{ cidade.estado }}</td>
 
-            </td>
+    <td>
 
-            <td>
+        {% if cidade.ativo %}
 
-                {{ cidade.estado }}
+            🟢 Ativa
 
-            </td>
+        {% else %}
 
-            <td>
+            🔴 Inativa
 
-                <a
-                    href="{{ url_for('cidades.lista_cidades', editar=cidade.id) }}">
+        {% endif %}
 
-                    <i class="fa-solid fa-pen"></i>
+    </td>
 
-                    Editar
+    <td>
 
-                </a>
+        <a
+            href="{{ url_for('cidades.lista_cidades', editar=cidade.id) }}">
 
-                &nbsp;&nbsp;
+            <i class="fa-solid fa-pen"></i>
 
-                <form
-                    method="POST"
-                    action="{{ url_for('cidades.excluir_cidade', id=cidade.id) }}"
-                    style="display:inline;">
+            Editar
 
-                    <button
-                        type="submit"
-                        onclick="return confirm('Deseja realmente excluir esta cidade?')">
+        </a>
 
-                        <i class="fa-solid fa-trash"></i>
+        &nbsp;&nbsp;
 
-                        Excluir
+        <form
+            method="POST"
+            action="{{ url_for('cidades.alterar_status', id=cidade.id) }}"
+            style="display:inline;">
 
-                    </button>
+            <button type="submit">
 
-                </form>
+                {% if cidade.ativo %}
 
-            </td>
+                    <i class="fa-solid fa-ban"></i>
 
-        </tr>
+                    Inativar
 
-        {% endfor %}
+                {% else %}
 
-    </tbody>
+                    <i class="fa-solid fa-check"></i>
+
+                    Ativar
+
+                {% endif %}
+
+            </button>
+
+        </form>
+
+        &nbsp;&nbsp;
+
+        <form
+            method="POST"
+            action="{{ url_for('cidades.excluir_cidade', id=cidade.id) }}"
+            style="display:inline;">
+
+            <button
+                type="submit"
+                onclick="return confirm('Deseja excluir definitivamente esta cidade?')">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Excluir
+
+            </button>
+
+        </form>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
 
 </table>
 

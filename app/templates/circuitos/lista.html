@@ -6,162 +6,216 @@
 
 <hr>
 
-<form method="POST">
+<form method="POST" class="form-card">
 
-<div class="grid-form">
+    {% if editar %}
+        <input
+            type="hidden"
+            name="id"
+            value="{{ editar.id }}">
+    {% endif %}
 
-<div>
+    <p>
 
-<label>Cidade</label>
+        <label>Cidade</label>
 
-<select name="cidade" required>
+        <select name="cidade" required>
 
-{% for cidade in cidades %}
+            {% for cidade in cidades %}
 
-<option value="{{ cidade.id }}">
+                <option
+                    value="{{ cidade.id }}"
+                    {% if editar and editar.cidade_id == cidade.id %}selected{% endif %}>
 
-{{ cidade.cidade }} / {{ cidade.estado }}
+                    {{ cidade.cidade }} / {{ cidade.estado }}
 
-</option>
+                </option>
 
-{% endfor %}
+            {% endfor %}
 
-</select>
+        </select>
 
-</div>
+    </p>
 
-<div>
+    <p>
 
-<label>Operadora</label>
+        <label>Operadora</label>
 
-<select name="operadora" required>
+        <select name="operadora" required>
 
-{% for operadora in operadoras %}
+            {% for operadora in operadoras %}
 
-<option value="{{ operadora.id }}">
+                <option
+                    value="{{ operadora.id }}"
+                    {% if editar and editar.operadora_id == operadora.id %}selected{% endif %}>
 
-{{ operadora.nome }}
+                    {{ operadora.nome }}
 
-</option>
+                </option>
 
-{% endfor %}
+            {% endfor %}
 
-</select>
+        </select>
 
-</div>
+    </p>
 
-<div>
+    <p>
 
-<label>Tipo</label>
+        <label>Tipo</label>
 
-<select name="tipo">
+        <select name="tipo" required>
 
-<option>Principal</option>
+            <option
+                value="Principal"
+                {% if editar and editar.tipo == "Principal" %}selected{% endif %}>
+                Principal
+            </option>
 
-<option>Redundante</option>
+            <option
+                value="Redundante"
+                {% if editar and editar.tipo == "Redundante" %}selected{% endif %}>
+                Redundante
+            </option>
 
-</select>
+        </select>
 
-</div>
+    </p>
 
-<div>
+    <p>
 
-<label>Designação</label>
+        <label>Designação / Circuito</label>
 
-<input
-type="text"
-name="designacao"
-required>
+        <input
+            type="text"
+            name="designacao"
+            required
+            value="{{ editar.designacao if editar else '' }}">
 
-</div>
+    </p>
 
-</div>
+    <button type="submit">
 
-<br>
+        {% if editar %}
 
-<button class="btn">
+            <i class="fa-solid fa-pen"></i>
 
-<i class="fa-solid fa-floppy-disk"></i>
+            Atualizar
 
-Salvar
+        {% else %}
 
-</button>
+            <i class="fa-solid fa-plus"></i>
+
+            Salvar
+
+        {% endif %}
+
+    </button>
+
+    {% if editar %}
+
+        <a
+            href="{{ url_for('circuitos.lista_circuitos') }}"
+            style="margin-left:15px;">
+
+            Cancelar
+
+        </a>
+
+    {% endif %}
 
 </form>
 
 <hr>
 
+<h3>Circuitos cadastrados</h3>
+
 <table class="tabela">
 
-<thead>
+    <thead>
 
-<tr>
+        <tr>
 
-<th>Cidade</th>
+            <th>Cidade</th>
 
-<th>Operadora</th>
+            <th>Operadora</th>
 
-<th>Tipo</th>
+            <th>Tipo</th>
 
-<th>Designação</th>
+            <th>Designação</th>
 
-<th>Status</th>
+            <th width="220">Ações</th>
 
-<th>Ações</th>
+        </tr>
 
-</tr>
+    </thead>
 
-</thead>
+    <tbody>
 
-<tbody>
+        {% for circuito in circuitos %}
 
-{% for circuito in circuitos %}
+        <tr>
 
-<tr>
+            <td>
 
-<td>{{ circuito.cidade.cidade }}</td>
+                {{ circuito.cidade.cidade }} / {{ circuito.cidade.estado }}
 
-<td>{{ circuito.operadora.nome }}</td>
+            </td>
 
-<td>{{ circuito.tipo }}</td>
+            <td>
 
-<td>{{ circuito.designacao }}</td>
+                {{ circuito.operadora.nome }}
 
-<td>
+            </td>
 
-{% if circuito.ativo %}
+            <td>
 
-🟢
+                {{ circuito.tipo }}
 
-{% else %}
+            </td>
 
-🔴
+            <td>
 
-{% endif %}
+                {{ circuito.designacao }}
 
-</td>
+            </td>
 
-<td>
+            <td>
 
-<button>
+                <a
+                    href="{{ url_for('circuitos.lista_circuitos', editar=circuito.id) }}">
 
-<i class="fa-solid fa-pen"></i>
+                    <i class="fa-solid fa-pen"></i>
 
-</button>
+                    Editar
 
-<button>
+                </a>
 
-<i class="fa-solid fa-trash"></i>
+                &nbsp;&nbsp;
 
-</button>
+                <form
+                    method="POST"
+                    action="{{ url_for('circuitos.excluir_circuito', id=circuito.id) }}"
+                    style="display:inline;">
 
-</td>
+                    <button
+                        type="submit"
+                        onclick="return confirm('Deseja realmente excluir este circuito?')">
 
-</tr>
+                        <i class="fa-solid fa-trash"></i>
 
-{% endfor %}
+                        Excluir
 
-</tbody>
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
 
 </table>
 

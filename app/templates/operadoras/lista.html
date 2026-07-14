@@ -67,7 +67,9 @@
 
             <th>Operadora</th>
 
-            <th width="180">Ações</th>
+            <th width="120">Status</th>
+
+            <th width="320">Ações</th>
 
         </tr>
 
@@ -75,51 +77,87 @@
 
 <tbody>
 
-        {% for operadora in operadoras %}
+{% for operadora in operadoras %}
 
-        <tr>
+<tr>
 
-            <td>
+    <td>{{ operadora.nome }}</td>
 
-                {{ operadora.nome }}
+    <td>
 
-            </td>
+        {% if operadora.ativo %}
 
-            <td>
+            🟢 Ativa
 
-                <a
-                    href="{{ url_for('operadoras.lista_operadoras', editar=operadora.id) }}">
+        {% else %}
 
-                    <i class="fa-solid fa-pen"></i>
+            🔴 Inativa
 
-                    Editar
+        {% endif %}
 
-                </a>
+    </td>
 
-                &nbsp;&nbsp;
+    <td>
 
-                <form
-                    method="POST"
-                    action="{{ url_for('operadoras.excluir_operadora', id=operadora.id) }}"
-                    style="display:inline;">
+        <a href="{{ url_for('operadoras.lista_operadoras', editar=operadora.id) }}">
 
-                    <button
-                        type="submit"
-                        onclick="return confirm('Deseja realmente excluir esta operadora?')">
+            <i class="fa-solid fa-pen"></i>
 
-                        <i class="fa-solid fa-trash"></i>
+            Editar
 
-                        Excluir
+        </a>
 
-                    </button>
+        &nbsp;&nbsp;
 
-                </form>
+        <form
+            method="POST"
+            action="{{ url_for('operadoras.alterar_status', id=operadora.id) }}"
+            style="display:inline;">
 
-            </td>
+            <button type="submit">
 
-        </tr>
+                {% if operadora.ativo %}
 
-        {% endfor %}
+                    <i class="fa-solid fa-ban"></i>
+
+                    Inativar
+
+                {% else %}
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Ativar
+
+                {% endif %}
+
+            </button>
+
+        </form>
+
+        &nbsp;&nbsp;
+
+        <form
+            method="POST"
+            action="{{ url_for('operadoras.excluir_operadora', id=operadora.id) }}"
+            style="display:inline;">
+
+            <button
+                type="submit"
+                onclick="return confirm('Deseja excluir definitivamente esta operadora?')">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Excluir
+
+            </button>
+
+        </form>
+
+    </td>
+
+</tr>
+
+{% endfor %}
 
 </tbody>
 
