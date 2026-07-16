@@ -15,11 +15,13 @@ from app.models import (
     Operadora,
     Ocorrencia,
 )
+from app.decorators import admin_required
 
 circuitos_bp = Blueprint("circuitos", __name__)
 
 
 @circuitos_bp.route("/circuitos", methods=["GET", "POST"])
+@admin_required
 def lista_circuitos():
 
     editar = None
@@ -155,6 +157,7 @@ def lista_circuitos():
     "/circuitos/<int:id>/status",
     methods=["POST"],
 )
+@admin_required
 def alterar_status(id):
 
     circuito = Circuito.query.get_or_404(id)
@@ -190,6 +193,7 @@ def alterar_status(id):
     "/circuitos/<int:id>/excluir",
     methods=["POST"],
 )
+@admin_required
 def excluir_circuito(id):
 
     circuito = Circuito.query.get_or_404(id)

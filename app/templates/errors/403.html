@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2>
+        <i class="fa-solid fa-ban"></i>
+        Acesso negado
+    </h2>
+
+    <hr>
+
+    <p>
+
+        Você não possui permissão para acessar esta área do sistema.
+
+    </p>
+
+    <br>
+
+    <a href="{{ url_for('main.dashboard') }}" class="botao">
+
+        <i class="fa-solid fa-house"></i>
+
+        Voltar ao Dashboard
+
+    </a>
+
+</div>
+
+{% endblock %}

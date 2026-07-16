@@ -1,0 +1,69 @@
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:20px;
+
+    margin-top:20px;
+
+}
+
+.dashboard-card{
+
+    background:#fff;
+
+    border-radius:8px;
+
+    padding:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+    min-height:220px;
+
+}
+
+.dashboard-card h3{
+
+    margin-bottom:15px;
+
+    color:#1F3A5F;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.dashboard-card p{
+
+    margin-bottom:10px;
+
+}
+
+.dashboard-lateral{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.dashboard-item{
+
+    padding:12px;
+
+    border-left:4px solid #1F3A5F;
+
+    background:#f8f9fa;
+
+}

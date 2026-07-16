@@ -1,0 +1,281 @@
+/* =====================================================
+   LAYOUT GERAL
+===================================================== */
+
+body{
+
+    margin:0;
+
+    padding:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:100vh;
+
+    background:#f5f7fa;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.topo{
+
+    height:70px;
+
+    background:#1F3A5F;
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    box-shadow:0 2px 6px rgba(0,0,0,.15);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+.logo{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.logo-titulo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.logo-titulo h1{
+
+    margin:0;
+
+    font-size:26px;
+
+}
+
+.logo span{
+
+    font-size:12px;
+
+    color:#c9d5e3;
+
+}
+
+
+/* =====================================================
+   TOPO DIREITA
+===================================================== */
+
+.topo-direita{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.usuario-logado{
+
+    font-size:14px;
+
+}
+
+.btn-topo{
+
+    background:#F4B400;
+
+    color:#1F3A5F;
+
+    text-decoration:none;
+
+    padding:10px 18px;
+
+    border-radius:6px;
+
+    font-weight:bold;
+
+    transition:.25s;
+
+}
+
+.btn-topo:hover{
+
+    background:#ffd04a;
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+
+    flex:1;
+
+    display:flex;
+
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu{
+
+    width:260px;
+
+    background:#243447;
+
+    color:#fff;
+
+    min-height:calc(100vh - 70px);
+
+}
+
+.menu ul{
+
+    margin:0;
+
+    padding:20px 0;
+
+    list-style:none;
+
+}
+
+.menu li{
+
+    transition:.2s;
+
+}
+
+.menu li:hover{
+
+    background:#31485f;
+
+}
+
+.menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    padding:14px 22px;
+
+}
+
+.menu a i{
+
+    width:20px;
+
+    text-align:center;
+
+}
+
+
+/* =====================================================
+   TÍTULOS
+===================================================== */
+
+.menu-titulo{
+
+    padding:24px 22px 10px;
+
+    color:#9fb3c8;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    cursor:default;
+
+}
+
+.menu-titulo:hover{
+
+    background:none;
+
+}
+
+
+/* =====================================================
+   SEPARADORES
+===================================================== */
+
+.menu-separador{
+
+    height:1px;
+
+    background:#3d5267;
+
+    margin:12px 18px;
+
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+.conteudo{
+
+    flex:1;
+
+    padding:30px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    background:#1F3A5F;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:14px;
+
+    font-size:13px;
+
+}

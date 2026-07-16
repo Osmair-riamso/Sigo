@@ -1,3 +1,6 @@
+from app.decorators import admin_required
+
+
 from flask import (
     Blueprint,
     render_template,
@@ -14,6 +17,8 @@ operadoras_bp = Blueprint("operadoras", __name__)
 
 
 @operadoras_bp.route("/operadoras", methods=["GET", "POST"])
+@admin_required
+
 def lista_operadoras():
 
     editar = None
@@ -121,6 +126,7 @@ def lista_operadoras():
     "/operadoras/<int:id>/status",
     methods=["POST"],
 )
+@admin_required
 def alterar_status(id):
 
     operadora = Operadora.query.get_or_404(id)
@@ -156,6 +162,7 @@ def alterar_status(id):
     "/operadoras/<int:id>/excluir",
     methods=["POST"],
 )
+@admin_required
 def excluir_operadora(id):
 
     operadora = Operadora.query.get_or_404(id)

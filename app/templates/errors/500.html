@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Erro interno
+    </h2>
+
+    <hr>
+
+    <p>
+
+        Ocorreu um erro inesperado durante o processamento da solicitação.
+
+    </p>
+
+    <p>
+
+        Caso o problema persista, entre em contato com o administrador do sistema.
+
+    </p>
+
+    <br>
+
+    <a
+        href="{{ url_for('main.dashboard') }}"
+        class="botao">
+
+        <i class="fa-solid fa-house"></i>
+
+        Voltar ao Dashboard
+
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,42 +1,33 @@
-# Wireframe - Dashboard SIGO
+# Wireframe - SIGO
 
 ---
 
-## Barra Superior
+## Dashboard
 
-Logo SIGO
+Barra Superior
 
-Data
-
-Hora
-
-Botão Entrar
-
----
-
-## Menu Lateral
-
-Dashboard
-
-Ocorrências
-
-Circuitos
-
-Operadoras
-
-Usuários
-
-Configurações
+- Logo
+- Data
+- Hora
+- Login
 
 ---
 
-## Painel 1
+Menu Lateral
 
-### Fibra
+- Dashboard
+- Ocorrências
+- Circuitos
+- Operadoras
+- Cidades
+- Usuários
+- Configurações
 
-Ocorrências abertas relacionadas aos circuitos.
+---
 
-Informações:
+Painel 1
+
+Fibra
 
 - Cidade
 - Circuito
@@ -46,123 +37,37 @@ Informações:
 
 ---
 
-## Painel 2
+Painel 2
 
-### Passagem de Turno
+Passagem de Turno
 
-Registro operacional.
-
-Informações:
-
-- procedimentos
-- troca de equipamentos
-- observações
-- atualizações
+- Procedimentos
+- Atualizações
+- Equipamentos
+- Observações
 
 ---
 
-## Painel 3
+Painel 3
 
-### Agenda Técnica
+Agenda Técnica
 
 Eventos programados.
 
-Os eventos aparecem automaticamente sete dias antes da data.
-
 ---
 
-## Painel 4
+Painel 4
 
-### Resumo do Dia
+Resumo do Dia
 
 Resumo operacional.
 
-Exemplo:
-
-Hoje tivemos uma queda em Porto Alegre.
-
-Operadora Cirion.
-
-Circuito CTA-0001.
-
-Técnico em campo.
-
 ---
 
-## Painel Direito
+Painel Direito
 
-### Última Atualização
+Última atualização
 
-Exibe a última movimentação operacional.
+Agenda
 
-Campos:
-
-- Operadora
-- Circuito
-- Usuário
-- Data
-- Hora
-- Status
-
----
-
-### Agenda
-
-Mostra o próximo evento.
-
----
-
-### Alertas Operacionais
-
-Área destinada aos alertas críticos.
-
-Os alertas poderão ser ocultados ou reativados pelo Administrador.
-
-Não serão alimentados automaticamente pelo Zabbix.
-
-O objetivo é evitar alarmes repetitivos.
-
-USUARIO
----------
-id
-nome
-login
-senha_hash
-perfil
-ativo
-created_at
-updated_at
-
-OPERADORA
-----------
-id
-nome
-ativo
-created_at
-updated_at
-
-CIDADE
--------
-id
-cidade
-estado
-ativo
-created_at
-updated_at
-
-CIRCUITO
----------
-id
-cidade_id
-operadora_id
-tipo
-designacao
-observacao
-ativo
-created_at
-updated_at
-
-OCORRENCIA
------------
-(estrutura será implementada na Sprint 7)
-
+Alertas Operacionais

@@ -5,16 +5,46 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>SIGO</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- CSS -->
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/base.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/layout.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/crud.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/login.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/components.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/responsive.css') }}">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
@@ -32,7 +62,11 @@
 
         </div>
 
-        <span>Sistema Integrado de Gestão Operacional</span>
+        <span>
+
+            Sistema Integrado de Gestão Operacional
+
+        </span>
 
     </div>
 
@@ -40,7 +74,38 @@
 
         <span id="relogio"></span>
 
-        <button>Entrar</button>
+        {% if current_user.is_authenticated %}
+
+            <span class="usuario-logado">
+
+                Olá,
+                <strong>{{ current_user.nome }}</strong>
+
+            </span>
+
+            <a
+                href="{{ url_for('auth.logout') }}"
+                class="btn-topo">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Sair
+
+            </a>
+
+        {% else %}
+
+            <a
+                href="{{ url_for('auth.login') }}"
+                class="btn-topo">
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                Entrar
+
+            </a>
+
+        {% endif %}
 
     </div>
 
@@ -48,81 +113,155 @@
 
 <div class="container">
 
-    <aside class="menu">
+<aside class="menu">
 
-        <ul>
+<ul>
 
-            <li>
-                <a href="{{ url_for('main.dashboard') }}">
-                    <i class="fa-solid fa-house"></i>
-                    Dashboard
-                </a>
-            </li>
+<li class="menu-titulo">
 
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    Ocorrências
-                </a>
-            </li>
+Operação
 
-            <li>
-            <a href="{{ url_for('circuitos.lista_circuitos') }}">
-                <i class="fa-solid fa-network-wired"></i>
-                Circuitos
-            </a>
-            </li>
+</li>
 
-            <li>
-                <a href="{{ url_for('operadoras.lista_operadoras') }}">
-                    <i class="fa-solid fa-building"></i>
-                    Operadoras
-                </a>
-            </li>
+<li>
 
-            <li>
-                <a href="{{ url_for('cidades.lista_cidades') }}">
-                    <i class="fa-solid fa-city"></i>
-                    Cidades
-                </a>
-            </li>
+<a href="{{ url_for('main.dashboard') }}">
 
-            <li>
-                <a href="{{ url_for('usuarios.lista_usuarios') }}">
-                    <i class="fa-solid fa-users"></i>
-                    Usuários
-                </a>
-            </li>
+<i class="fa-solid fa-house"></i>
 
-        </ul>
+Dashboard
 
-    </aside>
+</a>
+
+</li>
+
+<li>
+
+<a href="#">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+Ocorrências
+
+</a>
+
+</li>
+
+<div class="menu-separador"></div>
+
+{% if current_user.is_authenticated and current_user.perfil == "ADMIN" %}
+
+<li class="menu-titulo">
+
+Cadastros
+
+</li>
+
+<li>
+
+<a href="{{ url_for('circuitos.lista_circuitos') }}">
+
+<i class="fa-solid fa-network-wired"></i>
+
+Circuitos
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('operadoras.lista_operadoras') }}">
+
+<i class="fa-solid fa-building"></i>
+
+Operadoras
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('cidades.lista_cidades') }}">
+
+<i class="fa-solid fa-city"></i>
+
+Cidades
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('usuarios.lista_usuarios') }}">
+
+<i class="fa-solid fa-users"></i>
+
+Usuários
+
+</a>
+
+</li>
+
+<div class="menu-separador"></div>
+
+<li class="menu-titulo">
+
+Sistema
+
+<li>
+
+    <a href="{{ url_for('ocorrencias.lista_ocorrencias') }}">
+
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+        Ocorrências
+
+    </a>
+
+</li>
+
+Configurações
+
+</a>
+
+</li>
+
+{% endif %}
+
+</ul>
+
+</aside>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
 
-    {% if messages %}
+{% if messages %}
 
-        <div class="flash-container">
+<div class="flash-container">
 
-            {% for categoria, mensagem in messages %}
+{% for categoria, mensagem in messages %}
 
-                <div class="flash {{ categoria }}">
-                    {{ mensagem }}
-                </div>
+<div class="flash {{ categoria }}">
 
-            {% endfor %}
+{{ mensagem }}
 
-        </div>
+</div>
 
-    {% endif %}
+{% endfor %}
+
+</div>
+
+{% endif %}
 
 {% endwith %}
 
 <main class="conteudo">
 
-    {% block content %}
+{% block content %}
 
-    {% endblock %}
+{% endblock %}
 
 </main>
 
@@ -130,7 +269,7 @@
 
 <footer>
 
-    SIGO v0.1.0 • Desenvolvido por Osmair Pereira
+SIGO v0.1.0 • Desenvolvido por Osmair Pereira
 
 </footer>
 
@@ -139,4 +278,3 @@
 </body>
 
 </html>
-

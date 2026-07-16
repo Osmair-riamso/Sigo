@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2>
+        <i class="fa-solid fa-lock"></i>
+        Login necessário
+    </h2>
+
+    <hr>
+
+    <p>
+
+        Você precisa estar autenticado para acessar esta área do sistema.
+
+    </p>
+
+    <br>
+
+    <a
+        href="{{ url_for('auth.login') }}"
+        class="botao">
+
+        <i class="fa-solid fa-right-to-bracket"></i>
+
+        Fazer Login
+
+    </a>
+
+</div>
+
+{% endblock %}

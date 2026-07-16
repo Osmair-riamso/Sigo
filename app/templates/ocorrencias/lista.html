@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Ocorrências</h2>
+
+<hr>
+
+<p>
+Módulo em desenvolvimento.
+</p>
+
+<table class="tabela">
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Cidade</th>
+
+            <th>Circuito</th>
+
+            <th>Status</th>
+
+            <th>Prioridade</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for ocorrencia in ocorrencias %}
+
+        <tr>
+
+            <td>{{ ocorrencia.id }}</td>
+
+            <td>{{ ocorrencia.cidade.cidade }}</td>
+
+            <td>{{ ocorrencia.circuito.designacao }}</td>
+
+            <td>{{ ocorrencia.status }}</td>
+
+            <td>{{ ocorrencia.prioridade }}</td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="5">
+
+                Nenhuma ocorrência cadastrada.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -9,11 +9,13 @@ from flask import (
 
 from app import db
 from app.models import Cidade, Circuito
+from app.decorators import admin_required
 
 cidades_bp = Blueprint("cidades", __name__)
 
 
 @cidades_bp.route("/cidades", methods=["GET", "POST"])
+@admin_required
 def lista_cidades():
 
     editar = None
@@ -127,6 +129,7 @@ def lista_cidades():
     "/cidades/<int:id>/status",
     methods=["POST"],
 )
+@admin_required
 def alterar_status(id):
 
     cidade = Cidade.query.get_or_404(id)
@@ -162,6 +165,7 @@ def alterar_status(id):
     "/cidades/<int:id>/excluir",
     methods=["POST"],
 )
+@admin_required
 def excluir_cidade(id):
 
     cidade = Cidade.query.get_or_404(id)

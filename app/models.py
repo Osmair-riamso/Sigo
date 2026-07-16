@@ -163,14 +163,14 @@ class Circuito(BaseModel):
             f"{self.operadora.nome}>"
         )
 
-
-
 class Ocorrencia(BaseModel):
-    """
-    Chamado principal do sistema.
-    """
-
     __tablename__ = "ocorrencias"
+
+    cidade_id = db.Column(
+        db.Integer,
+        db.ForeignKey("cidades.id"),
+        nullable=False,
+    )
 
     circuito_id = db.Column(
         db.Integer,
@@ -178,50 +178,98 @@ class Ocorrencia(BaseModel):
         nullable=False,
     )
 
-    usuario_abertura_id = db.Column(
+    operadora_id = db.Column(
+        db.Integer,
+        db.ForeignKey("operadoras.id"),
+        nullable=False,
+    )
+
+    usuario_id = db.Column(
         db.Integer,
         db.ForeignKey("usuarios.id"),
         nullable=False,
     )
 
     protocolo = db.Column(
-        db.String(80)
+        db.String(50)
+    )
+
+    tipo = db.Column(
+        db.String(50),
+        nullable=False,
     )
 
     prioridade = db.Column(
-        db.String(30),
+        db.String(20),
+        nullable=False,
+    )
+
+    sintoma = db.Column(
+        db.String(100),
         nullable=False,
     )
 
     status = db.Column(
-        db.String(30),
+        db.String(40),
         nullable=False,
-        default="Aberto"
+        default="ABERTA",
     )
 
-    sintoma = db.Column(
-        db.String(200),
-        nullable=False,
+    tecnico = db.Column(
+        db.String(120)
     )
 
+    previsao = db.Column(
+        db.String(120)
+    )
+
+    observacao = db.Column(
+        db.Text
+    )
+    
     tecnico_campo = db.Column(
-        db.Boolean,
-        default=False,
+    db.Boolean,
+    default=False,
     )
 
-    data_abertura = db.Column(
-        db.DateTime,
-        default=agora,
-        nullable=False,
-    )
-
-    data_encerramento = db.Column(
-        db.DateTime
-    )
+    cidade = db.relationship("Cidade")
 
     circuito = db.relationship("Circuito")
 
-    usuario_abertura = db.relationship("Usuario")
+    operadora = db.relationship("Operadora")
 
-    def __repr__(self):
-        return f"<Ocorrencia {self.id}>"
+    usuario = db.relationship("Usuario")
+    
+    data_encerramento = db.Column(db.DateTime)
+
+def __repr__(self):
+    return f"<Ocorrencia {self.id}>"
+    
+class HistoricoOcorrencia(BaseModel):
+    __tablename__ = "historico_ocorrencias"
+
+    ocorrencia_id = db.Column(
+        db.Integer,
+        db.ForeignKey("ocorrencias.id"),
+        nullable=False,
+    )
+
+    usuario_id = db.Column(
+        db.Integer,
+        db.ForeignKey("usuarios.id"),
+        nullable=False,
+    )
+
+    descricao = db.Column(
+        db.Text,
+        nullable=False,
+    )
+
+    ocorrencia = db.relationship(
+        "Ocorrencia",
+        backref="historico",
+    )
+
+    usuario = db.relationship("Usuario")
+    
+    

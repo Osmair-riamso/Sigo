@@ -13,11 +13,13 @@ from app.models import (
     Usuario,
     Ocorrencia,
 )
+from app.decorators import admin_required
 
 usuarios_bp = Blueprint("usuarios", __name__)
 
 
 @usuarios_bp.route("/usuarios", methods=["GET", "POST"])
+@admin_required
 def lista_usuarios():
 
     editar = None
@@ -139,6 +141,7 @@ def lista_usuarios():
     "/usuarios/<int:id>/status",
     methods=["POST"],
 )
+@admin_required
 def alterar_status(id):
 
     usuario = Usuario.query.get_or_404(id)
@@ -174,6 +177,7 @@ def alterar_status(id):
     "/usuarios/<int:id>/excluir",
     methods=["POST"],
 )
+@admin_required
 def excluir_usuario(id):
 
     usuario = Usuario.query.get_or_404(id)
