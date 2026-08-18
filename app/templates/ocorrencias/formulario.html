@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Nova Ocorrência</h2>
+
+<hr>
+
+<form method="POST" class="form-card">
+
+    <p>
+        <label>Protocolo</label>
+
+        <input
+            type="text"
+            name="protocolo"
+            placeholder="Número do protocolo">
+    </p>
+
+
+    <p>
+        <label>Cidade</label>
+
+        <select name="cidade_id" required>
+
+            <option value="">
+                Selecione a cidade
+            </option>
+
+            {% for cidade in cidades %}
+
+                <option value="{{ cidade.id }}">
+                    {{ cidade.cidade }} / {{ cidade.estado }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+
+    <p>
+        <label>Operadora</label>
+
+        <select name="operadora_id" required>
+
+            <option value="">
+                Selecione a operadora
+            </option>
+
+            {% for operadora in operadoras %}
+
+                <option value="{{ operadora.id }}">
+                    {{ operadora.nome }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+
+    <p>
+        <label>Circuito</label>
+
+        <select name="circuito_id" required>
+
+            <option value="">
+                Selecione o circuito
+            </option>
+
+            {% for circuito in circuitos %}
+
+                <option value="{{ circuito.id }}">
+                    {{ circuito.designacao }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+
+    <p>
+        <label>Tipo</label>
+
+        <select name="tipo" required>
+
+            <option value="">
+                Selecione o tipo
+            </option>
+
+            <option value="FIBRA">
+                Fibra
+            </option>
+
+            <option value="EQUIPAMENTO">
+                Equipamento
+            </option>
+
+            <option value="ENERGIA">
+                Energia
+            </option>
+
+            <option value="OUTROS">
+                Outros
+            </option>
+
+        </select>
+
+    </p>
+
+
+    <p>
+        <label>Prioridade</label>
+
+        <select name="prioridade" required>
+
+            <option value="">
+                Selecione a prioridade
+            </option>
+
+            <option value="BAIXA">
+                Baixa
+            </option>
+
+            <option value="MEDIA">
+                Média
+            </option>
+
+            <option value="ALTA">
+                Alta
+            </option>
+
+            <option value="CRITICA">
+                Crítica
+            </option>
+
+        </select>
+
+    </p>
+
+
+    <p>
+        <label>Sintoma</label>
+
+        <input
+            type="text"
+            name="sintoma"
+            required
+            placeholder="Ex.: Sem sinal">
+    </p>
+
+
+    <p>
+        <label>Técnico</label>
+
+        <input
+            type="text"
+            name="tecnico"
+            placeholder="Nome do técnico">
+    </p>
+
+
+    <p>
+        <label>Previsão</label>
+
+        <input
+            type="text"
+            name="previsao"
+            placeholder="Ex.: 14:30">
+    </p>
+
+
+    <p>
+        <label>Observação</label>
+
+        <textarea
+            name="observacao"
+            rows="5"
+            placeholder="Descreva a ocorrência, informações recebidas ou outras observações."></textarea>
+    </p>
+
+
+    <button type="submit">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Abrir Ocorrência
+
+    </button>
+
+
+    <a
+        href="{{ url_for('ocorrencias.lista_ocorrencias') }}"
+        style="margin-left:15px;">
+
+        Cancelar
+
+    </a>
+
+</form>
+
+{% endblock %}

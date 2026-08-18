@@ -42,6 +42,7 @@
         href="{{ url_for('static', filename='css/responsive.css') }}">
 
     <!-- Font Awesome -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -111,167 +112,172 @@
 
 </header>
 
+
 <div class="container">
 
-<aside class="menu">
+    <aside class="menu">
 
-<ul>
+        <ul>
 
-<li class="menu-titulo">
+            <li class="menu-titulo">
 
-Operação
+                Operação
 
-</li>
+            </li>
 
-<li>
+            <li>
 
-<a href="{{ url_for('main.dashboard') }}">
+                <a href="{{ url_for('main.dashboard') }}">
 
-<i class="fa-solid fa-house"></i>
+                    <i class="fa-solid fa-house"></i>
 
-Dashboard
+                    Dashboard
 
-</a>
+                </a>
 
-</li>
+            </li>
 
-<li>
+            <li>
 
-<a href="#">
+                <a href="{{ url_for('ocorrencias.lista_ocorrencias') }}">
 
-<i class="fa-solid fa-triangle-exclamation"></i>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
 
-Ocorrências
+                    Ocorrências
 
-</a>
+                </a>
 
-</li>
+            </li>
 
-<div class="menu-separador"></div>
 
-{% if current_user.is_authenticated and current_user.perfil == "ADMIN" %}
+            <div class="menu-separador"></div>
 
-<li class="menu-titulo">
 
-Cadastros
+            {% if current_user.is_authenticated and current_user.perfil == "ADMIN" %}
 
-</li>
+                <li class="menu-titulo">
 
-<li>
+                    Cadastros
 
-<a href="{{ url_for('circuitos.lista_circuitos') }}">
+                </li>
 
-<i class="fa-solid fa-network-wired"></i>
+                <li>
 
-Circuitos
+                    <a href="{{ url_for('circuitos.lista_circuitos') }}">
 
-</a>
+                        <i class="fa-solid fa-network-wired"></i>
 
-</li>
+                        Circuitos
 
-<li>
+                    </a>
 
-<a href="{{ url_for('operadoras.lista_operadoras') }}">
+                </li>
 
-<i class="fa-solid fa-building"></i>
+                <li>
 
-Operadoras
+                    <a href="{{ url_for('operadoras.lista_operadoras') }}">
 
-</a>
+                        <i class="fa-solid fa-building"></i>
 
-</li>
+                        Operadoras
 
-<li>
+                    </a>
 
-<a href="{{ url_for('cidades.lista_cidades') }}">
+                </li>
 
-<i class="fa-solid fa-city"></i>
+                <li>
 
-Cidades
+                    <a href="{{ url_for('cidades.lista_cidades') }}">
 
-</a>
+                        <i class="fa-solid fa-city"></i>
 
-</li>
+                        Cidades
 
-<li>
+                    </a>
 
-<a href="{{ url_for('usuarios.lista_usuarios') }}">
+                </li>
 
-<i class="fa-solid fa-users"></i>
+                <li>
 
-Usuários
+                    <a href="{{ url_for('usuarios.lista_usuarios') }}">
 
-</a>
+                        <i class="fa-solid fa-users"></i>
 
-</li>
+                        Usuários
 
-<div class="menu-separador"></div>
+                    </a>
 
-<li class="menu-titulo">
+                </li>
 
-Sistema
 
-<li>
+                <div class="menu-separador"></div>
 
-    <a href="{{ url_for('ocorrencias.lista_ocorrencias') }}">
 
-        <i class="fa-solid fa-triangle-exclamation"></i>
+                <li class="menu-titulo">
 
-        Ocorrências
+                    Sistema
 
-    </a>
+                </li>
 
-</li>
+                <li>
 
-Configurações
+                    <a href="#">
 
-</a>
+                        <i class="fa-solid fa-gear"></i>
 
-</li>
+                        Configurações
 
-{% endif %}
+                    </a>
 
-</ul>
+                </li>
 
-</aside>
+            {% endif %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
+        </ul>
 
-{% if messages %}
+    </aside>
 
-<div class="flash-container">
 
-{% for categoria, mensagem in messages %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-<div class="flash {{ categoria }}">
+        {% if messages %}
 
-{{ mensagem }}
+            <div class="flash-container">
+
+                {% for categoria, mensagem in messages %}
+
+                    <div class="flash {{ categoria }}">
+
+                        {{ mensagem }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <main class="conteudo">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
 
 </div>
 
-{% endfor %}
-
-</div>
-
-{% endif %}
-
-{% endwith %}
-
-<main class="conteudo">
-
-{% block content %}
-
-{% endblock %}
-
-</main>
-
-</div>
 
 <footer>
 
-SIGO v0.1.0 • Desenvolvido por Osmair Pereira
+    SIGO v0.1.0 • Desenvolvido por Osmair Pereira
 
 </footer>
+
 
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 

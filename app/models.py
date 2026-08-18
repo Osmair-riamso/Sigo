@@ -240,10 +240,12 @@ class Ocorrencia(BaseModel):
 
     usuario = db.relationship("Usuario")
     
-    data_encerramento = db.Column(db.DateTime)
+    data_encerramento = db.Column(
+        db.DateTime
+    )
 
-def __repr__(self):
-    return f"<Ocorrencia {self.id}>"
+    def __repr__(self):
+        return f"<Ocorrencia {self.id}>"
     
 class HistoricoOcorrencia(BaseModel):
     __tablename__ = "historico_ocorrencias"

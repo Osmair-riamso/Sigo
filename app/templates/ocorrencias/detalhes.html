@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Ocorrência #{{ ocorrencia.id }}</h2>
+
+<hr>
+
+<div class="form-card">
+
+    <h3>Informações da Ocorrência</h3>
+
+    <p>
+        <strong>Protocolo:</strong>
+        {{ ocorrencia.protocolo or "Não informado" }}
+    </p>
+
+    <p>
+        <strong>Cidade:</strong>
+        {{ ocorrencia.cidade.cidade }}
+        / {{ ocorrencia.cidade.estado }}
+    </p>
+
+    <p>
+        <strong>Circuito:</strong>
+        {{ ocorrencia.circuito.designacao }}
+    </p>
+
+    <p>
+        <strong>Operadora:</strong>
+        {{ ocorrencia.operadora.nome }}
+    </p>
+
+    <p>
+        <strong>Tipo:</strong>
+        {{ ocorrencia.tipo }}
+    </p>
+
+    <p>
+        <strong>Prioridade:</strong>
+        {{ ocorrencia.prioridade }}
+    </p>
+
+    <p>
+        <strong>Sintoma:</strong>
+        {{ ocorrencia.sintoma }}
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        {{ ocorrencia.status }}
+    </p>
+
+    <p>
+        <strong>Técnico:</strong>
+        {{ ocorrencia.tecnico or "Não informado" }}
+    </p>
+
+    <p>
+        <strong>Previsão:</strong>
+        {{ ocorrencia.previsao or "Não informada" }}
+    </p>
+
+    <p>
+        <strong>Técnico em campo:</strong>
+
+        {% if ocorrencia.tecnico_campo %}
+            Sim
+        {% else %}
+            Não
+        {% endif %}
+
+    </p>
+
+    <p>
+        <strong>Data de abertura:</strong>
+        {{ ocorrencia.created_at.strftime("%d/%m/%Y %H:%M") }}
+    </p>
+
+    {% if ocorrencia.data_encerramento %}
+
+        <p>
+            <strong>Data de encerramento:</strong>
+            {{ ocorrencia.data_encerramento.strftime("%d/%m/%Y %H:%M") }}
+        </p>
+
+    {% endif %}
+
+    {% if ocorrencia.observacao %}
+
+        <hr>
+
+        <h3>Observação</h3>
+
+        <p>
+            {{ ocorrencia.observacao }}
+        </p>
+
+    {% endif %}
+
+</div>
+
+
+<hr>
+
+
+<h3>Atualizar Ocorrência</h3>
+
+<div class="form-card">
+
+    <form
+        method="POST"
+        action="{{ url_for(
+            'ocorrencias.atualizar_ocorrencia',
+            id=ocorrencia.id
+        ) }}"
+    >
+
+        <p>
+
+            <label for="status">
+                <strong>Status</strong>
+            </label>
+
+            <br>
+
+            <select
+                id="status"
+                name="status"
+                required
+            >
+
+                <option
+                    value="ABERTA"
+                    {% if ocorrencia.status == "ABERTA" %}
+                        selected
+                    {% endif %}
+                >
+                    Aberta
+                </option>
+
+                <option
+                    value="EM ACOMPANHAMENTO"
+                    {% if ocorrencia.status == "EM ACOMPANHAMENTO" %}
+                        selected
+                    {% endif %}
+                >
+                    Em acompanhamento
+                </option>
+
+                <option
+                    value="AGUARDANDO OPERADORA"
+                    {% if ocorrencia.status == "AGUARDANDO OPERADORA" %}
+                        selected
+                    {% endif %}
+                >
+                    Aguardando operadora
+                </option>
+
+                <option
+                    value="ESCALONADA"
+                    {% if ocorrencia.status == "ESCALONADA" %}
+                        selected
+                    {% endif %}
+                >
+                    Escalonada
+                </option>
+
+                <option
+                    value="RESOLVIDA"
+                    {% if ocorrencia.status == "RESOLVIDA" %}
+                        selected
+                    {% endif %}
+                >
+                    Resolvida
+                </option>
+
+                <option
+                    value="FINALIZADA"
+                    {% if ocorrencia.status == "FINALIZADA" %}
+                        selected
+                    {% endif %}
+                >
+                    Finalizada
+                </option>
+
+            </select>
+
+        </p>
+
+
+        <p>
+
+            <label for="tecnico">
+                <strong>Técnico</strong>
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="tecnico"
+                name="tecnico"
+                value="{{ ocorrencia.tecnico or '' }}"
+            >
+
+        </p>
+
+
+        <p>
+
+            <label for="previsao">
+                <strong>Previsão</strong>
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="previsao"
+                name="previsao"
+                value="{{ ocorrencia.previsao or '' }}"
+            >
+
+        </p>
+
+
+        <p>
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    name="tecnico_campo"
+                    value="sim"
+                    {% if ocorrencia.tecnico_campo %}
+                        checked
+                    {% endif %}
+                >
+
+                Técnico em campo
+
+            </label>
+
+        </p>
+
+
+        <p>
+
+            <label for="observacao">
+                <strong>Observação da atualização</strong>
+            </label>
+
+            <br>
+
+            <textarea
+                id="observacao"
+                name="observacao"
+                rows="4"
+                placeholder="Descreva a atualização da ocorrência..."
+            ></textarea>
+
+        </p>
+
+
+        <button
+            type="submit"
+            class="btn-topo"
+        >
+
+            <i class="fa-solid fa-save"></i>
+
+            Registrar atualização
+
+        </button>
+
+    </form>
+
+</div>
+
+
+<hr>
+
+
+<h3>Histórico da Ocorrência</h3>
+
+<div class="form-card">
+
+    {% for item in historico %}
+
+        <div>
+
+            <strong>
+                {{ item.created_at.strftime("%d/%m/%Y %H:%M") }}
+            </strong>
+
+            <br>
+
+            {{ item.descricao }}
+
+            <br>
+
+            <small>
+                Registrado por:
+                {{ item.usuario.nome }}
+            </small>
+
+        </div>
+
+        {% if not loop.last %}
+
+            <hr>
+
+        {% endif %}
+
+    {% else %}
+
+        <p>
+            Nenhuma movimentação registrada.
+        </p>
+
+    {% endfor %}
+
+</div>
+
+
+<p style="margin-top:20px;">
+
+    <a
+        href="{{ url_for('ocorrencias.lista_ocorrencias') }}">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Voltar para Ocorrências
+
+    </a>
+
+</p>
+
+{% endblock %}
